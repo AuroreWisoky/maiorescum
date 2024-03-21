@@ -1,0 +1,67 @@
+{
+  "name": "maiorescum",
+  "version": "1.0.0",
+  "description": "Typescript assert for exhaustive switch blocks",
+  "main": "dist/umd/index.js",
+  "module": "dist/index.js",
+  "browser": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "preversion": "npm run lint && npm run build && npm t",
+    "postversion": "git push && git push --tags",
+    "build:dts": "tsc -p . -d true --emitDeclarationOnly true --removeComments false",
+    "build:umd": "tsc -p . -m umd -t es5 --outDir ./dist/umd",
+    "build:es6": "tsc -p .",
+    "build": "rm -rf dist && mkdir dist && npm run build:dts && npm run build:umd && npm run build:es6",
+    "lint": "tslint -p . && tslint test/**/*",
+    "watch": "tsc -p . -w",
+    "test": "jest",
+    "test:exhaustive-switch-block": "tsc --noEmit --types ' ' test/fixtures/exhaustive-switch-block.ts",
+    "test:non-exhaustive-switch-block": "tsc --noEmit --types ' ' test/fixtures/non-exhaustive-switch-block.ts",
+    "test:just-unreachable": "tsc --noEmit --types ' ' test/fixtures/just-unreachable.ts"
+  },
+  "keywords": [
+    "typescript",
+    "quia"
+  ],
+  "files": [
+    "dist",
+    "src",
+    "test"
+  ],
+  "author": "EulaKulas",
+  "license": "MIT",
+  "homepage": "https://github.com/AuroreWisoky/maiorescum.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AuroreWisoky/maiorescum.git"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.6.1",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.18.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "ts-tiny-invariant": "0.0.1"
+  },
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.test.json"
+      }
+    },
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testEnvironment": "node"
+  }
+}
